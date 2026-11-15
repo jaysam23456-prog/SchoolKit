@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#101827">
+    <meta name="description" content="SchoolKit - Your Student Companion">
+
+    <title>SchoolKit | Student Companion</title>
+
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="assets/SchoolKit Education App Logo.png">
+<link rel="apple-touch-icon" href="assets/SchoolKit Education App Logo.png">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#101827">
+</head>
+
+<body>
+
+<div class="app-shell">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+
+        <a class="brand" href="#">
+            <span class="brand-mark">S</span>
+
+            <span>
+                School<span class="brand-accent">Kit</span>
+                <small>STUDENT COMPANION</small>
+            </span>
+        </a>
+
+        <div class="nav-label">WORKSPACE</div>
+
+        <nav class="navigation">
+
+            <button class="nav-item active" data-view="dashboard">
+                <span>⌂</span> Dashboard
+            </button>
+
+            <button class="nav-item" data-view="homework">
+                <span>✓</span> Homework
+            </button>
+
+            <button class="nav-item" data-view="timetable">
+                <span>▦</span> Timetable
+            </button>
+
+            <button class="nav-item" data-view="analytics">
+                <span>▥</span> Performance
+            </button>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+
+            <div class="sidebar-tip">
+                <span class="tip-icon">✦</span>
+
+                <strong>Small steps matter.</strong>
+
+                <p>
+                    Stay organised, keep learning
+                    and make progress every day.
+                </p>
+            </div>
+
+            <div class="sidebar-footer">
+                SCHOOLKIT by NOVA • VERSION 1.0
+            </div>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN AREA -->
+    <main class="main-area">
+
+        <header class="topbar">
+
+            <button class="mobile-menu" id="mobileMenu">
+                ☰
+            </button>
+
+            <div class="breadcrumb">
+                Workspace <span>/</span>
+                <strong id="pageName">Dashboard</strong>
+            </div>
+
+            <div class="topbar-right">
+
+                <span class="today-label" id="todayLabel"></span>
+
+                <div class="avatar">S</div>
+
+            </div>
+
+        </header>
+
+
+        <div class="content">
+
+            <!-- DASHBOARD -->
+            <section class="view active" id="dashboardView">
+
+                <div class="welcome-row">
+
+                    <div>
+                        <p class="eyebrow">YOUR LEARNING SPACE</p>
+
+                        <h1>
+                            Welcome back<span class="accent-dot">.</span>
+                        </h1>
+
+                        <p class="muted">
+                            A clearer plan makes every school day easier.
+                        </p>
+                    </div>
+
+                    <button class="primary-btn" data-go="homework">
+                        ＋ Add homework
+                    </button>
+
+                </div>
+
+
+                <div class="hero-card">
+
+                    <div>
+
+                        <p class="hero-kicker">
+                            KEEP MOVING FORWARD
+                        </p>
+
+                        <h2>
+                            Make today<br>count.
+                        </h2>
+
+                        <p>
+                            Organise your tasks, follow your timetable
+                            and track your progress.
+                        </p>
+
+                        <button class="hero-btn" data-go="timetable">
+                            View my timetable →
+                        </button>
+
+                    </div>
+
+                    <div class="hero-art">
+                        <div class="orbit orbit-one"></div>
+                        <div class="orbit orbit-two"></div>
+
+                        <div class="book-shape">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+
+                        <div class="spark spark-one">✦</div>
+                        <div class="spark spark-two">✧</div>
+                    </div>
+
+                </div>
+
+
+                <div class="section-heading">
+
+                    <div>
+                        <p class="eyebrow">AT A GLANCE</p>
+                        <h2>Your overview</h2>
+                    </div>
+
+                </div>
+
+
+                <div class="stats-grid">
+
+                    <article class="stat-card">
+                        <div class="stat-top">
+                            <span>Total homework</span>
+                            <span class="stat-icon purple">▤</span>
+                        </div>
+
+                        <strong id="dashTotal">0</strong>
+                        <small>All saved tasks</small>
+                    </article>
+
+
+                    <article class="stat-card">
+                        <div class="stat-top">
+                            <span>Completed</span>
+                            <span class="stat-icon green">✓</span>
+                        </div>
+
+                        <strong id="dashCompleted">0</strong>
+                        <small>Tasks finished</small>
+                    </article>
+
+
+                    <article class="stat-card">
+                        <div class="stat-top">
+                            <span>Pending</span>
+                            <span class="stat-icon orange">◷</span>
+                        </div>
+
+                        <strong id="dashPending">0</strong>
+                        <small>Still to do</small>
+                    </article>
+
+
+                    <article class="stat-card">
+                        <div class="stat-top">
+                            <span>Completion rate</span>
+                            <span class="stat-icon blue">↗</span>
+                        </div>
+
+                        <strong id="dashRate">0%</strong>
+                        <small>Overall progress</small>
+                    </article>
+
+                </div>
+
+
+                <div class="dashboard-bottom">
+
+                    <section class="panel">
+
+                        <div class="panel-heading">
+
+                            <div>
+                                <p class="eyebrow">DON'T FORGET</p>
+                                <h3>Upcoming homework</h3>
+                            </div>
+
+                            <button class="text-btn" data-go="homework">
+                                View all →
+                            </button>
+
+                        </div>
+
+                        <div id="upcomingList" class="compact-list"></div>
+
+                    </section>
+
+
+                    <section class="panel">
+
+                        <div class="panel-heading">
+
+                            <div>
+                                <p class="eyebrow">YOUR ROUTINE</p>
+                                <h3>Today's classes</h3>
+                            </div>
+
+                            <button class="text-btn" data-go="timetable">
+                                Timetable →
+                            </button>
+
+                        </div>
+
+                        <div id="todayClasses" class="compact-list"></div>
+
+                    </section>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- HOMEWORK -->
+            <section class="view" id="homeworkView">
+
+                <div class="page-heading">
+
+                    <div>
+                        <p class="eyebrow">STAY ON TOP OF YOUR TASKS</p>
+
+                        <h1>
+                            Homework Manager<span class="accent-dot">.</span>
+                        </h1>
+
+                        <p class="muted">
+                            Add assignments, set due dates and track
+                            what you've completed.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <section class="panel form-panel">
+
+                    <div class="panel-heading">
+                        <div>
+                            <p class="eyebrow">NEW TASK</p>
+                            <h3>Add homework</h3>
+                        </div>
+                    </div>
+
+
+                    <form id="homeworkForm" class="form-grid">
+
+                        <label class="field field-wide">
+                            Homework title
+
+                            <input
+                                id="hwTitle"
+                                type="text"
+                                placeholder="e.g. Solve Mathematics exercise 4"
+                                maxlength="100"
+                                required
+                            >
+                        </label>
+
+
+                        <label class="field">
+                            Subject
+
+                            <input
+                                id="hwSubject"
+                                type="text"
+                                placeholder="e.g. Mathematics"
+                                maxlength="50"
+                                required
+                            >
+                        </label>
+
+
+                        <label class="field">
+                            Due date
+
+                            <input
+                                id="hwDue"
+                                type="date"
+                                required
+                            >
+                        </label>
+
+
+                        <label class="field field-wide">
+                            Notes <span class="optional">(optional)</span>
+
+                            <textarea
+                                id="hwNotes"
+                                rows="2"
+                                placeholder="Add instructions or reminders..."
+                                maxlength="300"
+                            ></textarea>
+                        </label>
+
+
+                        <div class="form-actions">
+
+                            <button class="primary-btn" type="submit">
+                                ＋ Save homework
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </section>
+
+
+                <div class="list-toolbar">
+
+                    <div>
+                        <p class="eyebrow">YOUR ASSIGNMENTS</p>
+                        <h2>Homework list</h2>
+                    </div>
+
+
+                    <div class="filter-tabs">
+
+                        <button class="filter-btn active" data-filter="all">
+                            All
+                        </button>
+
+                        <button class="filter-btn" data-filter="pending">
+                            Pending
+                        </button>
+
+                        <button class="filter-btn" data-filter="completed">
+                            Completed
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <div id="homeworkList" class="homework-list"></div>
+
+            </section>
+
+
+
+            <!-- TIMETABLE -->
+            <section class="view" id="timetableView">
+
+                <div class="page-heading">
+
+                    <div>
+                        <p class="eyebrow">PLAN YOUR SCHOOL WEEK</p>
+
+                        <h1>
+                            My Timetable<span class="accent-dot">.</span>
+                        </h1>
+
+                        <p class="muted">
+                            Keep your lessons organised in one simple place.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <section class="panel form-panel">
+
+                    <div class="panel-heading">
+                        <div>
+                            <p class="eyebrow">BUILD YOUR ROUTINE</p>
+                            <h3>Add a class</h3>
+                        </div>
+                    </div>
+
+
+                    <form id="timetableForm" class="form-grid">
+
+                        <label class="field">
+                            Subject
+
+                            <input
+                                id="classSubject"
+                                type="text"
+                                placeholder="e.g. English Language"
+                                maxlength="50"
+                                required
+                            >
+                        </label>
+
+
+                        <label class="field">
+                            Day
+
+                            <select id="classDay" required>
+                                <option value="">Choose a day</option>
+                                <option>Monday</option>
+                                <option>Tuesday</option>
+                                <option>Wednesday</option>
+                                <option>Thursday</option>
+                                <option>Friday</option>
+                                <option>Saturday</option>
+                                <option>Sunday</option>
+                            </select>
+                        </label>
+
+
+                        <label class="field">
+                            Start time
+
+                            <input id="classStart" type="time" required>
+                        </label>
+
+
+                        <label class="field">
+                            End time
+
+                            <input id="classEnd" type="time" required>
+                        </label>
+
+
+                        <label class="field field-wide">
+                            Room / Teacher <span class="optional">(optional)</span>
+
+                            <input
+                                id="classExtra"
+                                type="text"
+                                placeholder="e.g. Room 4 or Mr Mensah"
+                                maxlength="60"
+                            >
+                        </label>
+
+
+                        <div class="form-actions">
+
+                            <button class="primary-btn" type="submit">
+                                ＋ Add to timetable
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </section>
+
+
+                <div class="timetable-toolbar">
+
+                    <div>
+                        <p class="eyebrow">WEEKLY PLAN</p>
+                        <h2>Your classes</h2>
+                    </div>
+
+                    <span class="muted small-text">
+                        Select a day to view its lessons
+                    </span>
+
+                </div>
+
+
+                <div class="day-tabs" id="dayTabs"></div>
+
+
+                <div class="panel timetable-panel">
+                    <div id="timetableList"></div>
+                </div>
+
+            </section>
+
+
+
+            <!-- PERFORMANCE -->
+            <section class="view" id="analyticsView">
+
+                <div class="page-heading">
+
+                    <div>
+                        <p class="eyebrow">SEE HOW FAR YOU'VE COME</p>
+
+                        <h1>
+                            Performance<span class="accent-dot">.</span>
+                        </h1>
+
+                        <p class="muted">
+                            Your progress, based on the homework
+                            you record in SchoolKit.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="stats-grid analytics-stats">
+
+                    <article class="stat-card">
+                        <div class="stat-top">
+                            <span>Total homework</span>
+                            <span class="stat-icon purple">▤</span>
+                        </div>
+
+                        <strong id="anaTotal">0</strong>
+                        <small>Tasks recorded</small>
+                    </article>
+
+
+                    <article class="stat-card">
+                        <div class="stat-top">
+                            <span>Completed</span>
+                            <span class="stat-icon green">✓</span>
+                        </div>
+
+                        <strong id="anaCompleted">0</strong>
+                        <small>Tasks finished</small>
+                    </article>
+
+
+                    <article class="stat-card">
+                        <div class="stat-top">
+                            <span>Pending</span>
+                            <span class="stat-icon orange">◷</span>
+                        </div>
+
+                        <strong id="anaPending">0</strong>
+                        <small>Tasks remaining</small>
+                    </article>
+
+                </div>
+
+
+                <section class="panel progress-panel">
+
+                    <div class="panel-heading">
+
+                        <div>
+                            <p class="eyebrow">YOUR CONSISTENCY</p>
+                            <h3>Homework completion</h3>
+                        </div>
+
+                        <strong class="large-rate" id="anaRate">0%</strong>
+
+                    </div>
+
+
+                    <div class="progress-track">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+
+
+                    <p class="muted progress-caption" id="progressCaption">
+                        Complete a homework task to start tracking your progress.
+                    </p>
+
+                </section>
+
+
+                <section class="panel insight-panel">
+
+                    <span class="insight-icon">✦</span>
+
+                    <div>
+                        <h3>Keep building good habits</h3>
+
+                        <p class="muted">
+                            Add your school tasks regularly and mark
+                            them complete when you finish.
+                            Your analytics update automatically.
+                        </p>
+                    </div>
+
+                </section>
+
+            </section>
+
+        </div>
+
+    </main>
+
+</div>
+
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>

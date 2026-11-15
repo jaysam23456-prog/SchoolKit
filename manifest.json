@@ -1,0 +1,29 @@
+{
+    "name": "SchoolKit - Student Companion",
+    "short_name": "SchoolKit",
+    "description": "Your all-in-one student companion for homework, timetables and academic performance.",
+    "start_url": "./index.html",
+    "scope": "./",
+    "display": "standalone",
+    "orientation": "any",
+    "background_color": "#f5f7fb",
+    "theme_color": "#101827",
+    "categories": [
+        "education",
+        "productivity"
+    ],
+    "icons": [
+        {
+            "src": "assets/SchoolKit Education App Logo.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "assets/SchoolKit Education App Logo.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any"
+        }
+    ]
+}
