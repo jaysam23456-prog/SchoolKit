@@ -1,20 +1,24 @@
-const CACHE_NAME = "schoolkit-v6";
+const CACHE_NAME = "schoolkit-v7";
 
 const APP_FILES = [
-    "./",
     "./index.html",
     "./style.css",
     "./script.js",
-    "./manifest.json",
-    "./assets/icon-192.png",
-    "./assets/icon-512.png",
-    "./assets/SchoolKit Education App Logo.png"
+    "./manifest.json"
 ];
 
 // INSTALL
 self.addEventListener("install", event => {
     event.waitUntil(
-        caches.open(CACHE_NAME).then(cache => cache.addAll(APP_FILES))
+        caches.open(CACHE_NAME).then(async cache => {
+            for (const file of APP_FILES) {
+                try {
+                    await cache.add(file);
+                } catch (error) {
+                    console.error("Could not cache:", file, error);
+                }
+            }
+        })
     );
 });
 
@@ -34,7 +38,7 @@ self.addEventListener("activate", event => {
     );
 });
 
-// ACTIVATE UPDATE WHEN USER CLICKS UPDATE NOW
+// UPDATE ACTIVATION
 self.addEventListener("message", event => {
     if (event.data === "SKIP_WAITING") {
         self.skipWaiting();
@@ -49,21 +53,9 @@ self.addEventListener("fetch", event => {
         caches.match(event.request).then(cachedFile => {
             if (cachedFile) return cachedFile;
 
-            return fetch(event.request).then(response => {
-                if (
-                    response &&
-                    response.status === 200 &&
-                    response.type === "basic"
-                ) {
-                    const copy = response.clone();
-
-                    caches.open(CACHE_NAME).then(cache => {
-                        cache.put(event.request, copy);
-                    });
-                }
-
-                return response;
-            }).catch(() => caches.match("./index.html"));
+            return fetch(event.request).catch(() => {
+                return caches.match("./index.html");
+            });
         })
     );
 });
