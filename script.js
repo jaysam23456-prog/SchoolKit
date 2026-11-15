@@ -572,15 +572,33 @@ if (
     window.addEventListener("load", async () => {
         try {
             const registration = await navigator.serviceWorker.register(
-                "./service-worker.js"
-            );
+    "./service-worker.js",
+    {
+        updateViaCache: "none"
+    }
+);
 
             console.log("SchoolKit Service Worker Registered!");
 
-            // Check for a newer version whenever the app opens.
-            registration.update();
+            const updateBanner = document.getElementById("updateBanner");
+            const updateNowBtn = document.getElementById("updateNowBtn");
 
-            // Detect when a new service worker has been downloaded.
+            // Display the update banner.
+            function showUpdateBanner() {
+                if (updateBanner) {
+                    updateBanner.style.display = "flex";
+                }
+            }
+
+            // Check for updates whenever the app opens.
+            await registration.update();
+
+            // Check whether an update is already waiting.
+            if (registration.waiting && navigator.serviceWorker.controller) {
+                showUpdateBanner();
+            }
+
+            // Detect a newly downloaded update.
             registration.addEventListener("updatefound", () => {
                 const newWorker = registration.installing;
 
@@ -591,15 +609,41 @@ if (
                         newWorker.state === "installed" &&
                         navigator.serviceWorker.controller
                     ) {
-                        alert(
-                            "A new SchoolKit update is ready. Refresh the app to use the latest version."
-                        );
+                        showUpdateBanner();
                     }
                 });
             });
 
+            // Reload when the user clicks Update Now.
+            if (updateNowBtn) {
+    updateNowBtn.addEventListener("click", () => {
+
+        const waitingWorker = registration.waiting;
+
+        if (!waitingWorker) {
+            registration.update();
+            return;
+        }
+
+        updateNowBtn.textContent = "Updating...";
+        updateNowBtn.disabled = true;
+
+        navigator.serviceWorker.addEventListener(
+            "controllerchange",
+            () => {
+                window.location.reload();
+            },
+            { once: true }
+        );
+
+        waitingWorker.postMessage("SKIP_WAITING");
+    });
+}
         } catch (error) {
-            console.error("SchoolKit Service Worker Registration Failed:", error);
+            console.error(
+                "SchoolKit Service Worker Registration Failed:",
+                error
+            );
         }
     });
 }
